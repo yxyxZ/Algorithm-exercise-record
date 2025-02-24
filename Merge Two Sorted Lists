@@ -1,0 +1,48 @@
+public class ListNode {
+    int val;
+    //一个整型变量，用来存储节点的值
+    ListNode next;
+    // 一个ListNode类型的变量，用于指向链表中的下一个节点
+    ListNode() {}
+    //无参构造
+    ListNode(int val) { this.val = val; }
+    //一个参数的构造,用于创建一个值为指定值的节点，但不指定下一个节点
+    ListNode(int val, ListNode next) {
+//含有两个参数的构造函数，用于创建一个值为指定值且指向下一个指定节点的链表节点
+        this.val = val;
+        this.next = next;
+    }
+}
+
+class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        // 创建一个虚拟头节点（dummy node），其值为-1。
+        // 虚拟头节点常用于简化链表操作，避免处理边界情况。
+        // 创建一个指针p，并将其初始化为指向虚拟头节点。
+        // 这个指针将用于遍历或构建链表。
+        ListNode dummy =new ListNode(-1),p=dummy;
+        //,p=dummy 就是 ListNode p=dummy
+        ListNode p1=l1,p2=l2;
+     // p1和p2分别指向l1和l2的头结点
+
+        while (p1!=null && p2!=null){
+            if(p1.val>=p2.val){
+                p.next=p2;
+                p2=p2.next;
+            }else {
+                p.next=p1;
+                p1=p1.next;
+            }
+            p=p.next; //p指针不断前进,用于构建新的链表
+        }
+        //如果p1还有剩余节点，则直接接到p后面
+        if(p1!=null){
+            p.next=p1;
+        }
+        if (p2!=null){
+            p.next=p2;
+        }
+        //返回虚拟头结点的下一个节点，即合并后的链表的头结点
+        return dummy.next;
+    }
+}
